@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/loginActivity">
+
+    <activity
+        android:id="@+id/signUpActivity"
+        android:name="com.barbaro.hellochilaquilesteam.SignUpActivity"
+        android:label="activity_sign_up"
+        tools:layout="@layout/activity_sign_up" >
+        <action
+            android:id="@+id/action_signUpActivity_to_mainActivity"
+            app:destination="@id/mainActivity" />
+    </activity>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.barbaro.hellochilaquilesteam.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_login" />
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.barbaro.hellochilaquilesteam.LoginActivity"
+        android:label="LoginActivity" >
+        <action
+            android:id="@+id/action_loginActivity_to_signUpActivity"
+            app:destination="@id/signUpActivity"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
+    </activity>
+</navigation>
