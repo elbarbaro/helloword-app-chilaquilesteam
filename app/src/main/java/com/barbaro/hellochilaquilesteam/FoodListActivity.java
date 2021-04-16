@@ -10,7 +10,7 @@ import com.barbaro.hellochilaquilesteam.models.Food;
 
 import java.util.ArrayList;
 
-public class FoodListActivity extends AppCompatActivity {
+public class FoodListActivity extends AppCompatActivity implements FoodAdapter.OnItemClickListener {
 
     private RecyclerView recyclerListFood;
     private ArrayList<Food> listFood;
@@ -39,7 +39,20 @@ public class FoodListActivity extends AppCompatActivity {
         listFood.add(chilaquiles);
         listFood.add(quekas);
 
-        FoodAdapter adapter = new FoodAdapter(listFood);
+        FoodAdapter adapter = new FoodAdapter(listFood, this);
         recyclerListFood.setAdapter(adapter);
+    }
+
+    // Crea y muestra una ventana como un dialogo
+    // Es una (bottom sheet) que saldrá de abajo
+    private void showFoodDetailsDialog(int id) {
+        FoodDetailDialogFragment.newInstance(id).show(
+                getSupportFragmentManager(), "food_detail_dialog");
+    }
+
+    @Override
+    public void onItemClick(Food food) {
+        int foodId = food.getId();
+        showFoodDetailsDialog(foodId);
     }
 }

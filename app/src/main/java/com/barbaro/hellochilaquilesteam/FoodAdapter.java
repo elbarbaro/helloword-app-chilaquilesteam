@@ -18,9 +18,11 @@ public class FoodAdapter extends
         RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
     private ArrayList<Food> list;
+    private OnItemClickListener listener;
 
-    public FoodAdapter(ArrayList<Food> list) {
+    public FoodAdapter(ArrayList<Food> list, OnItemClickListener listener) {
         this.list = list;
+        this.listener = listener;
     }
 
     @NonNull
@@ -43,6 +45,8 @@ public class FoodAdapter extends
 
         String stringPrice = String.format("%.00f", food.getPrice());
         holder.txtPrice.setText(stringPrice);
+
+        holder.onClick(listener, food);
     }
 
     @Override
@@ -70,5 +74,19 @@ public class FoodAdapter extends
             txtPrice = itemView.findViewById(R.id.txtPrice);
             btnAdd = itemView.findViewById(R.id.btnAdd);
         }
+
+        // Crear una acción para configurar el click
+        // sobre un elemento de la lista. Pasamos el objeto de los datos
+        // que selecciona (Food)
+
+        public void onClick(OnItemClickListener listener, Food food) {
+            itemView.setOnClickListener(v -> listener.onItemClick(food));
+        }
+    }
+
+    // Creación de un contrato (comportamientos) para accionar un evento click
+    // sobre un elemento de una lista
+    public interface OnItemClickListener {
+        void onItemClick(Food food);
     }
 }
