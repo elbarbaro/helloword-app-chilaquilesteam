@@ -10,6 +10,9 @@ import android.view.View;
 
 import android.content.Intent;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class LoginActivity extends AppCompatActivity {
 
     // Variables instancia (atributos)
@@ -18,10 +21,20 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private Button btnSignUp;
 
+    private FirebaseAuth firebaseAuth; // API - Authentication Service
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+        if(currentUser != null) {
+            navigateToHome();
+        }
 
         // Buscar los elementos visuales para meterlos a los objetos (inflate)
 
