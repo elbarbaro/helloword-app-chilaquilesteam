@@ -65,4 +65,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
             btnView = itemView.findViewById(R.id.btnView);
         }
     }
+
+    public void addBook(Book book) {
+        list.add(book);
+        notifyDataSetChanged();
+    }
 }

@@ -1,5 +1,6 @@
 package com.barbaro.hellochilaquilesteam;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -8,8 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.barbaro.hellochilaquilesteam.models.Book;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,10 +25,18 @@ public class MainActivity extends AppCompatActivity {
     // Objeto lista para guardar libros
     private ArrayList<Book> listBooks;
 
+    // Firebase services
+    private FirebaseDatabase firebaseDatabase; // API
+    private DatabaseReference booksReference;
+
+    private BookAdapter adapter; // FoodAdapter
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
 
         recyclerListBooks = findViewById(R.id.listBooks);
 
@@ -48,8 +63,33 @@ public class MainActivity extends AppCompatActivity {
         listBooks.add(book4);
 
         // Crear un objeto que enlaza los datos de libros con el diseño de una vista
-        BookAdapter adapter = new BookAdapter(listBooks);
+        adapter = new BookAdapter(listBooks);
 
-        recyclerListBooks.setAdapter(adapter);
+        recyclerListBooks.setAdapter(adapter); // La lista carga los datos y sus vistitas
+
+        getBooks();
+    }
+
+    private void getBooks() {
+        booksReference = firebaseDatabase.getReference("books");
+
+        // Quien lee los datos
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> snapshots = snapshot.getChildren();
+                for(DataSnapshot data : snapshots) {
+                    adapter.addBook(data.getValue(Book.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+
+        // Registrar para que escuche los cambios de nuevos datos
+        booksReference.addValueEventListener(valueEventListener);
     }
 }
