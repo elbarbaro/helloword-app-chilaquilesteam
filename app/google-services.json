@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "330575137347",
+    "project_id": "hello-chilaquiles-team",
+    "storage_bucket": "hello-chilaquiles-team.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330575137347:android:d6009b41e7bb9b76a0e2f6",
+        "android_client_info": {
+          "package_name": "com.barbaro.hellochilaquilesteam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "330575137347-fm3cdg0s2jscpt91ufhg42en7dhgdvdm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8-qi0hnK1dzvSkMLAk6m2igngVKprVXE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "330575137347-fm3cdg0s2jscpt91ufhg42en7dhgdvdm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
